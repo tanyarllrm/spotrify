@@ -4,10 +4,26 @@ import pprint
 import pandas as pd
 import random
 pd.set_option('display.max_colwidth', None)
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', 4)
 
 pp = pprint.PrettyPrinter(indent=4)
 
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+
+# genre_options = spotify.recommendation_genre_seeds()['genres']
+genres = ['acoustic', 'afrobeat', 'alt-rock', 'alternative', 'ambient', 'bluegrass', 'blues', 'bossanova', 'brazil',
+          'breakbeat', 'british', 'chicago-house', 'children', 'chill', 'classical', 'country', 'dance',
+          'dancehall', 'disco', 'disney', 'drum-and-bass', 'emo', 'folk', 'french',
+          'funk', 'garage', 'goth', 'grindcore', 'groove', 'grunge', 'guitar', 'happy', 'hard-rock', 'hip-hop',
+          'honky-tonk', 'house', 'idm', 'indian', 'indie', 'indie-pop', 'industrial', 'iranian', 'jazz', 'latin',
+          'latino', 'movies', 'new-age', 'new-release', 'opera', 'party', 'piano', 'pop', 'pop-film',
+          'power-pop', 'psych-rock', 'punk', 'punk-rock', 'r-n-b', 'rainy-day', 'reggae', 'reggaeton', 'road-trip',
+          'rock', 'rock-n-roll', 'rockabilly', 'romance', 'sad', 'salsa',
+          'samba', 'sertanejo', 'show-tunes', 'singer-songwriter', 'ska', 'sleep', 'songwriter', 'soul',
+          'soundtracks', 'spanish', 'study', 'summer', 'swedish', 'synth-pop', 'tango', 'trip-hop', 'turkish',
+          'work-out', 'world-music']
+genres = ['indie-pop']
 
 
 def get_artist_uri(name='Taylor Swift'):
@@ -56,59 +72,29 @@ def get_album_tracks(name, id):
     return df
 
 
-def bubble_sort_by_preference(values):
-    n = len(values)
+def get_recommendations(tracks, n):
+    seed_tracks = list(tracks['id'])
+    print('Track recommendations based on your top 5 songs:')
+    response = spotify.recommendations(seed_tracks=seed_tracks,
+                                       # seed_genres=genres,
+                                       country='CA',
+                                       min_danceability=0.5
+                                       )
+    recs = []
+    try:
+        # pp.pprint(response['tracks'][0])
+        for item in response['tracks'][:n]:
+            t = {'track_name': item['name'], 'album_name': item['album']['name'], 'artist_name': item['artists'][0]['name'],
+                 'spotify_url': item['external_urls']['spotify'], 'preview_url': item['preview_url']
+                 'track_uri': item['uri'], 'album_uri': item['album']['uri'], 'artist_uri': item['artists'][0]['uri'],
+                 }
+            recs.append(t)
+    except Exception as e:
+        print(e)
 
-    # Choose the inputs to select the left or right option
-    L, R = '1', '2'
-    print(f'Rules: Enter {L} for the choice on the left or {R} for the choice on the right.')
-
-    # Keep track of which pairs have already been compared
-    compared_pairs = set()
-
-    # Perform bubble sort based on user preference
-    for i in range(n - 1):
-        for j in range(n - i - 1):
-            k = j + 1
-            print(i, j, k)
-
-            # Generate a pair and shuffle the list if it has already been compared
-            pair = frozenset([values[j], values[k]])
-            while pair in compared_pairs:
-                random.shuffle(values)
-                pair = frozenset([values[j], values[k]])
-            compared_pairs.add(pair)
-            # print(compared_pairs)
-
-            # Display the two values for comparison
-            print(f"\nComparison {j + 1}:")
-            print(f"{values[j]} vs. {values[k]}")
-
-            # Get user input for their preference
-            choice = ''
-            while choice not in [L, R]:
-                choice = input("Enter your preference (1 or 2): ")
-
-            # Swap the values if necessary based on user preference
-            if choice == L:
-                values[j], values[k] = values[k], values[j]
-
-            print('current list:',values)
-
-            # # Prompt to continue with the next comparison
-            # if i < n - 2:
-            #     next_comparison = input("Continue to the next comparison? (yes or no): ")
-            #     if next_comparison.lower() != 'yes':
-            #         return values
-
-    return values
+    df = pd.DataFrame.from_dict(recs)
+    return df.iloc[:, :4]
 
 
 if __name__ == '__main__':
-
-    list = [1,2,3,4,5,6,7,8]
-    sorted_movies = bubble_sort_by_preference(list)
-    print("Sorted movies based on your preference:")
-    print(sorted_movies)
-
-
+    print('hi')
