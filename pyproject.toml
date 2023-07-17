@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "spotrify"
+version = "1.0.0"
+description = "Playing with the spotify api"
+authors = ["tanyaralliaram <86065482+tanyaralliaram@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.0.3"
+numpy = "^1.25.1"
+spotipy = "^2.23.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
