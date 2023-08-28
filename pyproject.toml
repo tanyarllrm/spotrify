@@ -11,6 +11,27 @@ pandas = "^2.0.3"
 numpy = "^1.25.1"
 spotipy = "^2.23.0"
 
+[tool.poetry.group.dev.dependencies]
+black = "*"
+
+[tool.black]
+line-length = 128
+target-version = ["py310", "py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
 
 [build-system]
 requires = ["poetry-core"]
