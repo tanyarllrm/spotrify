@@ -1,5 +1,6 @@
 # Exploring different sort methods with user input sort_fn
 
+
 def quick_sort(arr, sort_fn):
     if len(arr) <= 1:
         return arr
@@ -49,8 +50,8 @@ def user_choice(L, R):
     return str(user_input) == str(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Example usage:
-    unsorted_list = ['brown', 'fox', 'the', 'a', 'jumped', 'lazy', 'quick', 'dogs', 'over']
+    unsorted_list = ["brown", "fox", "the", "a", "jumped", "lazy", "quick", "dogs", "over"]
     sorted_list = merge_sort(unsorted_list, user_choice)
     print(sorted_list)
