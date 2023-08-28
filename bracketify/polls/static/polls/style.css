@@ -1,0 +1,12 @@
+li a {
+    color: black;
+}
+body {
+    font: 1.2em "Fira Sans", sans-serif;
+    background: white url("images/background.jpg") no-repeat;
+    background-size: cover;
+}
+
+.form-control + .form-control {
+  margin-top: 1em;
+}

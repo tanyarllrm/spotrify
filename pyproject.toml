@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "spotrify"
+version = "1.0.0"
+description = "Playing with the spotify api"
+authors = ["tanyaralliaram <86065482+tanyaralliaram@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.0.3"
+numpy = "^1.25.1"
+spotipy = "^2.23.0"
+Django = "^4.2.4"
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+django-debug-toolbar = "^4.2.0"
+
+[tool.black]
+line-length = 128
+target-version = ["py310", "py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
