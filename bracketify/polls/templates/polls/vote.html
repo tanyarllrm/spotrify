@@ -1,2 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
 <h1> Vote on Question {{ question.id }}: </h1>
 <h2> {{ question.question_text }} </h2>
