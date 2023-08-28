@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<link rel="icon" type="image/png" href="{% static 'polls/images/icon.png' %}" >
 
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
