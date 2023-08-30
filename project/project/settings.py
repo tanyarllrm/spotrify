@@ -25,8 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", False)
 
-ALLOWED_HOSTS = ["tanyarllrm.pythonanywhere.com",
-                 ]
+ALLOWED_HOSTS = [
+    "tanyarllrm.pythonanywhere.com",
+]
 if DEBUG:
     ALLOWED_HOSTS.append("127.0.0.1")
 
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "polls.apps.PollsConfig"
+    "polls.apps.PollsConfig",
+    "bracketify.apps.BracketifyConfig",
 ]
 
 MIDDLEWARE = [

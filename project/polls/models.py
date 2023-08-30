@@ -25,14 +25,3 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
-
-
-class Session(models.Model):
-    artist_name = models.CharField(max_length=128)
-    album_name = models.CharField(max_length=128)
-    song_name = models.CharField(max_length=128)
-    user = models.CharField(max_length=32)
-    ranking = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.user} Ranking for {self.artist_name} - {self.song_name}: {self.ranking}"

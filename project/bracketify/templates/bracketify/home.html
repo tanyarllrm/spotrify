@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bracketify/style.css' %}">
+<link rel="icon" type="image/png" href="{% static 'bracketify/images/icon.png' %}">
+
+<!DOCTYPE html>
+<html>
+<center>
+    <head>
+        <title>Home</title>
+    </head>
+    <body>
+    <h1>Welcome to Bracketify</h1>
+    <p>Enter an artist to see their top songs</p>
+    <a href="{% url 'bracketify:search_artist' %}">Start</a>
+    </body>
+</center>
+</html>

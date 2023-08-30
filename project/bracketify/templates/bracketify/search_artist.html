@@ -1,0 +1,21 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bracketify/style.css' %}">
+<link rel="icon" type="image/png" href="{% static 'bracketify/images/icon.png' %}">
+
+<!DOCTYPE html>
+<html>
+<center>
+    <head>
+        <title>Search Artist</title>
+    </head>
+    <body>
+    <h1>Search for an Artist</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="artist_name">Enter Artist's Name: </label>
+        <input type="text" id="artist_name" name="artist_name" required>
+        <button type="submit">Search</button>
+    </form>
+    </body>
+</center>
+</html>
