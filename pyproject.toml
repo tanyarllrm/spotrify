@@ -7,16 +7,15 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pandas = "^2.0.3"
 numpy = "^1.25.1"
 spotipy = "^2.23.0"
 Django = "^4.2.4"
 python-dotenv = "^1.0.0"
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.group.local.dependencies]
+pandas = "^2.0.3"
 black = "*"
 django-debug-toolbar = "^4.2.0"
-python-dotenv = "^1.0.0"
 
 [tool.black]
 line-length = 128

@@ -1,12 +1,12 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
-import pandas as pd
+# import pandas as pd
 import random
 
-pd.set_option("display.max_colwidth", None)
-pd.set_option("display.max_rows", None)
-pd.set_option("display.max_columns", 4)
+# pd.set_option("display.max_colwidth", None)
+# pd.set_option("display.max_rows", None)
+# pd.set_option("display.max_columns", 4)
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -156,8 +156,9 @@ def get_album_tracks(name, id):
     except Exception as e:
         print(e)
 
-    df = pd.DataFrame.from_dict(tracks)
-    return df
+    return tracks
+    # df = pd.DataFrame.from_dict(tracks)
+    # return df
 
 
 def get_recommendations(tracks, n):
@@ -187,8 +188,9 @@ def get_recommendations(tracks, n):
     except Exception as e:
         print(e)
 
-    df = pd.DataFrame.from_dict(recs)
-    return df.iloc[:, :4]
+    return recs
+    # df = pd.DataFrame.from_dict(recs)
+    # return df.iloc[:, :4]
 
 
 if __name__ == "__main__":
