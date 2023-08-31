@@ -108,8 +108,11 @@ genres = ["indie-pop"]
 def get_artist_uri(name="Taylor Swift"):
     results = spotify.search(q="artist:" + name, type="artist")
     items = results["artists"]["items"]
+
     try:
-        artist = items[0]
+        top_items = sorted(items, key=lambda x: x["followers"]["total"], reverse=True)[:5]
+        print(top_items)
+        artist = top_items[0]
         # pp.pprint(artist)
         uri = artist["uri"]
         return uri
@@ -119,7 +122,7 @@ def get_artist_uri(name="Taylor Swift"):
 
 def get_artist_albums(name, id):
     print(f"Getting all albums for {name}:")
-    response = spotify.artist_albums(id)
+    response = spotify.artist_albums(id, album_type="album")
 
     albums = []
     try:
@@ -130,8 +133,9 @@ def get_artist_albums(name, id):
     except Exception as e:
         print(e)
 
-    df = pd.DataFrame.from_dict(albums)
-    return df
+    # df = pd.DataFrame.from_dict(albums)
+    # return df
+    return albums
 
 
 def get_album_tracks(name, id):

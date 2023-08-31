@@ -1,17 +1,27 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'bracketify/style.css' %}">
-<link rel="icon" type="image/png" href="{% static 'bracketify/images/icon.png' %}">
-
-<!DOCTYPE html>
+{% extends 'bracketify/base.html' %}
 <html>
-<center>
-    <head>
-        <title>Home</title>
-    </head>
-    <body>
-    <h1>Welcome to Bracketify</h1>
-    <p>Enter an artist to see their top songs</p>
-    <a href="{% url 'bracketify:search_artist' %}">Start</a>
-    </body>
-</center>
+<title>Home</title>
+{% block content %}
+<style>
+    body {
+        text-align: center;
+    }
+    h1 {
+        margin-top: 2rem; /* Add some top margin to the heading */
+        text-align: center; /* Center align the heading */
+    }
+    p {
+        margin-top: 1rem; /* Add top margin to the paragraph */
+    }
+
+
+</style>
+<h1>Welcome to Bracketify</h1>
+<br>
+<p>Click start and enter an artist to see their top songs</p>
+<a href="{% url 'bracketify:search_artist' %}">
+	<button class="button1">Start</button>
+</a>
+<br><br>
+{% endblock %}
 </html>

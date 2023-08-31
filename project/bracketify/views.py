@@ -19,13 +19,16 @@ def artist_top_songs(request):
     if request.method == "POST":
         artist_name = request.POST.get("artist_name", "")
         artist_id = get_artist_uri(artist_name)
-        top_songs = spotify.artist_top_tracks(artist_id, country="CA")["tracks"][:5]
+        try:
+            top_songs = spotify.artist_top_tracks(artist_id, country="CA")["tracks"][:5]
+        except:
+            top_songs = []
+        all_related_artists = spotify.artist_related_artists(artist_id)["artists"]
+        sorted_artists = sorted(all_related_artists, key=lambda x: x["popularity"], reverse=True)[:5]
+        related_artists = [a["name"] for a in sorted_artists]
+        albums = get_artist_albums(artist_name, artist_id)
 
-        all_related_artists = spotify.artist_related_artists(artist_id)['artists']
-        sorted_artists = sorted(all_related_artists, key=lambda x: x['popularity'], reverse=True)[:5]
-        related_artists = [a['name'] for a in sorted_artists]
+        response = {"artist_name": artist_name, "top_songs": top_songs, "related_artists": related_artists, "albums": albums}
 
-        response = {"artist_name": artist_name, "top_songs": top_songs, "related_artists": related_artists}
-
-        return render(request, "bracketify/top_songs.html", response)
+        return render(request, "bracketify/artist_result.html", response)
     return render(request, "bracketify/search_artist.html")

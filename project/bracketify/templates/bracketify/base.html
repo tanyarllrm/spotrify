@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+<head>
+	<title>{% block title %}My App{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'bracketify/style.css' %}">
+	<link rel="icon" type="image/png" href="{% static 'bracketify/images/icon.png' %}">
+</head>
+<body>
+<div id="page-container">
+	<div id="content-wrap">
+		{% block content %}
+		{% endblock %}
+	</div>
+	<footer id="footer">
+		<p>Created by tanyarllrm using the <a href="https://developer.spotify.com/documentation/web-api">Spotify
+			API</a>.
+			All Artist and Song data sourced from Spotify.</p>
+	</footer>
+</div>
+</body>
+</html>

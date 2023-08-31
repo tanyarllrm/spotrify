@@ -1,0 +1,31 @@
+{% extends 'bracketify/base.html' %}
+
+<html>
+<head>
+	<title>Top Songs</title>
+</head>
+{% block content %}
+<body>
+<h1>Top Songs for {{ artist_name }}</h1>
+<div align="center">
+	<table style="width:30%">
+		{% for song in top_songs %}
+		<tr>
+			<td>{{ song.name }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h2>
+		Other artists you may like
+	</h2>
+	<table style="width:30%">
+		{% for artist in related_artists %}
+		<tr>
+			<td>{{artist}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+</body>
+{% endblock %}
+</html>

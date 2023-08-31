@@ -1,12 +1,90 @@
 li a {
     color: black;
 }
+
+h1 {
+    text-align: center;
+}
+
 body {
     font: 1.2em "Fira Sans", sans-serif;
     background: white url("images/background.jpg") no-repeat;
     background-size: cover;
 }
 
+table {
+  border: 1px solid black;
+}
+
+input {
+  border: 2px solid black;
+  border-radius: 3px;
+  background-color: transparent;
+  height: 25px;
+  width: 25%
+}
+
+.button1 {
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: transparent;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.button1:hover {
+  background-color: black;
+  color: white;
+}
+
+.button2 {
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: transparent;
+  color: black;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button2:hover {
+  background-color: black;
+  color: white;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 2.2rem;
+  background-color: transparent;
+  text-align: center;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  font: 0.8em "Fira Sans", sans-serif;
+}
+
 .form-control + .form-control {
   margin-top: 1em;
+}
+
+@media screen and (max-width: 480px) {
+  .text {
+    font-size: 16px;
+  }
 }

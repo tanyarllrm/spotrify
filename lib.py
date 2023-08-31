@@ -108,8 +108,11 @@ genres = ["indie-pop"]
 def get_artist_uri(name="Taylor Swift"):
     results = spotify.search(q="artist:" + name, type="artist")
     items = results["artists"]["items"]
+
     try:
-        artist = items[0]
+        top_items = sorted(items, key=lambda x: x["followers"]["total"], reverse=True)[:5]
+        print(top_items)
+        artist = top_items[0]
         # pp.pprint(artist)
         uri = artist["uri"]
         return uri
@@ -188,4 +191,4 @@ def get_recommendations(tracks, n):
 
 
 if __name__ == "__main__":
-    print("hi")
+    print(get_artist_uri("MUNA"))
