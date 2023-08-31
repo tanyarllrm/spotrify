@@ -2,12 +2,13 @@
 
 <html>
 <head>
-	<title>Top Songs</title>
+	<title>Artist Search Result</title>
 </head>
 {% block content %}
 <body>
-<h1>Top Songs for {{ artist_name }}</h1>
+<h1>{{ artist_name }}</h1>
 <div align="center">
+	<h2> Top Songs </h2>
 	<table style="width:30%">
 		{% for song in top_songs %}
 		<tr>
@@ -15,9 +16,8 @@
 		</tr>
 		{% endfor %}
 	</table>
-	<h2>
-		Other artists you may like
-	</h2>
+	<br>
+	<h2> Other artists you may like </h2>
 	<table style="width:30%">
 		{% for artist in related_artists %}
 		<tr>
@@ -25,6 +25,16 @@
 		</tr>
 		{% endfor %}
 	</table>
+</div>
+<br>
+<div align="center">
+	<h2> Select an album to create a song bracket </h2>
+	{% for album in albums %}
+	<a href="{% url 'bracketify:bracket' album.id %}">
+	<button class="button1">{{album.name}} ({{album.release_year}})</button>
+	</a>
+	{% endfor %}
+
 </div>
 </body>
 {% endblock %}

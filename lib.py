@@ -111,7 +111,6 @@ def get_artist_uri(name="Taylor Swift"):
 
     try:
         top_items = sorted(items, key=lambda x: x["followers"]["total"], reverse=True)[:5]
-        print(top_items)
         artist = top_items[0]
         # pp.pprint(artist)
         uri = artist["uri"]
@@ -122,13 +121,13 @@ def get_artist_uri(name="Taylor Swift"):
 
 def get_artist_albums(name, id):
     print(f"Getting all albums for {name}:")
-    response = spotify.artist_albums(id)
+    response = spotify.artist_albums(id, album_type="album")
 
     albums = []
     try:
         # item specify a collection of information related to each artist's album
         for item in response["items"]:
-            a = {"name": item["name"], "id": item["id"], "release_date": item["release_date"]}
+            a = {"name": item["name"], "id": item["id"], "release_year": str(item["release_date"][:4])}
             albums.append(a)
     except Exception as e:
         print(e)
@@ -191,4 +190,6 @@ def get_recommendations(tracks, n):
 
 
 if __name__ == "__main__":
-    print(get_artist_uri("MUNA"))
+    name = "MUNA"
+    id = get_artist_uri(name)
+    pp.pprint(get_artist_albums(name,id))

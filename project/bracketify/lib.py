@@ -128,14 +128,14 @@ def get_artist_albums(name, id):
     try:
         # item specify a collection of information related to each artist's album
         for item in response["items"]:
-            a = {"name": item["name"], "id": item["id"], "release_date": item["release_date"]}
+            a = {"name": item["name"], "id": item["id"], "release_year": str(item["release_date"][:4])}
             albums.append(a)
     except Exception as e:
         print(e)
 
+    return albums
     # df = pd.DataFrame.from_dict(albums)
     # return df
-    return albums
 
 
 def get_album_tracks(name, id):

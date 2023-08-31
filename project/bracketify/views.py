@@ -15,7 +15,7 @@ def home(request):
     return render(request, "bracketify/home.html")
 
 
-def artist_top_songs(request):
+def artist_search_result(request):
     if request.method == "POST":
         artist_name = request.POST.get("artist_name", "")
         artist_id = get_artist_uri(artist_name)
@@ -32,3 +32,7 @@ def artist_top_songs(request):
 
         return render(request, "bracketify/artist_result.html", response)
     return render(request, "bracketify/search_artist.html")
+
+
+def bracket(request, album_id):
+    return render(request, "bracketify/bracket.html")
