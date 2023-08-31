@@ -8,3 +8,7 @@ https://spotipy.readthedocs.io/en/2.19.0/
 
 https://developer.spotify.com/documentation/web-api/tutorials/getting-started
 
+https://help.pythonanywhere.com/pages/DjangoStaticFiles/
+
+https://tutorial.djangogirls.org/en/deploy/
+
