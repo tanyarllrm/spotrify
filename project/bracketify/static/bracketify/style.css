@@ -4,6 +4,13 @@ li a {
 
 h1 {
     text-align: center;
+    font-size: 4rem;
+    margin-top: 2rem; /* Add some top margin to the heading */
+}
+
+p {
+    margin-top: 1rem; /* Add top margin to the paragraph */
+    font-size: 1.25rem;
 }
 
 body {
@@ -24,8 +31,8 @@ input {
   border: 2px solid black;
   border-radius: 3px;
   background-color: transparent;
-  height: 25px;
-  width: 25%
+  height: 2.5rem;
+  width: 25%;
 }
 
 .button1 {
@@ -87,8 +94,12 @@ input {
   margin-top: 1em;
 }
 
-@media screen and (max-width: 480px) {
-  .text {
-    font-size: 16px;
+/* If the screen size is 600px wide or less*/
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 5rem;
+  }
+  p {
+    font-size: 1.5rem;
   }
 }

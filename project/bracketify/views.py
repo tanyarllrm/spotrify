@@ -6,6 +6,7 @@ from django.utils import timezone
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from .models import Record
+from .forms import UserChoiceForm
 from .lib import *
 
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
@@ -30,9 +31,38 @@ def artist_search_result(request):
 
         response = {"artist_name": artist_name, "top_songs": top_songs, "related_artists": related_artists, "albums": albums}
 
-        return render(request, "bracketify/artist_result.html", response)
+        return render(request, "bracketify/artist_detail.html", response)
     return render(request, "bracketify/search_artist.html")
 
 
+def user_choice(L, R):
+    global comparison_count  # Access the global counter
+    user_input = input(f"[1] {L} vs [2] {R}: ").strip().lower()
+    comparison_count += 1
+    return str(user_input) == str(1)
+
+
+def user_choice(user_input):
+    comparison_count = 0  # Initialize the comparison count
+
+    # Perform the comparison based on user input
+    if user_input == "1":
+        comparison_count += 1
+        result = True
+    else:
+        comparison_count += 1
+        result = False
+
+    return result, comparison_count
+
+
 def bracket(request, album_id):
-    return render(request, "bracketify/bracket.html")
+    if request.method == "POST":
+        form = UserChoiceForm(option1='Option 1', option2='Option 2', data=request.POST)
+        if form.is_valid():
+            user_input = form.cleaned_data["choice"]
+            result, comparison_count = user_choice(user_input)
+            return render(request, "result.html", {"result": result, "comparison_count": comparison_count})
+    else:
+        form = UserChoiceForm(option1='Option 1', option2='Option 2')
+    return render(request, "bracketify/bracket.html", {"form": form})

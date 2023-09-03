@@ -194,6 +194,38 @@ def get_recommendations(tracks, n):
     # df = pd.DataFrame.from_dict(recs)
     # return df.iloc[:, :4]
 
+def merge_sort(arr, sort_fn):
+    print(arr)
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+
+    left = merge_sort(left, sort_fn)
+    right = merge_sort(right, sort_fn)
+
+    return merge(left, right, sort_fn)
+
+
+def merge(left, right, sort_fn):
+    result = []
+    i, j = 0, 0
+
+    while i < len(left) and j < len(right):
+        if sort_fn(left[i], right[j]):
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result += left[i:]
+    result += right[j:]
+
+    return result
+
 
 if __name__ == "__main__":
     print("hi")

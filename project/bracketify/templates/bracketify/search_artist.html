@@ -1,7 +1,7 @@
 {% extends 'bracketify/base.html' %}
 
-<html>
-<style>
+<html >
+<style >
     body {
         text-align: center;
         align: center;
@@ -14,25 +14,24 @@
         margin-top: 1rem; /* Add top margin to the paragraph */
     }
 
-
-</style>
-<head>
-	<title>Search Artist</title>
-</head>
+</style >
+<head >
+	<title >Search Artist</title >
+</head >
 {% block content %}
-<body>
+<body >
 
-<h1>Search for an Artist</h1>
-<br>
-<div align="center">
+<h1 >Search for an Artist</h1 >
+<br >
+<div align="center" >
 	Enter an artist of your choice and click Search:
-	<br><br>
-	<form method="post">
+	<br ><br >
+	<form method="post" >
 		{% csrf_token %}
-		<input type="text" id="artist_name" name="artist_name" required>
-		<button class="button2">Search</button>
-	</form>
-</div>
-</body>
+		<input type="text" id="artist_name" name="artist_name" required >
+		<button class="button2" >Search</button >
+	</form >
+</div >
+</body >
 {% endblock %}
-</html>
+</html >

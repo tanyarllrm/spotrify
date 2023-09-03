@@ -3,6 +3,10 @@
 <title>Play</title>
 {% block content %}
 <h1>Play a song bracket for this album</h1>
-tdb
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_table }}
+	<button class="button1" type="submit">Submit</button>
+</form>
 {% endblock %}
 </html>

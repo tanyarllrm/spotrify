@@ -1,3 +1,5 @@
+import random
+
 # Exploring different sort methods with user input sort_fn
 # Initialize a global counter to keep track of comparisons
 comparison_count = 0
@@ -7,7 +9,10 @@ def quick_sort(arr, sort_fn):
     if len(arr) <= 1:
         return arr
 
-    pivot = arr[0]
+    # Choose a random pivot element
+    pivot_index = random.randint(0, len(arr) - 1)
+    pivot = arr[pivot_index]
+
     left = [x for x in arr[1:] if sort_fn(x, pivot)]
     right = [x for x in arr[1:] if not sort_fn(x, pivot)]
     print(left, right)
@@ -82,7 +87,6 @@ def heap_sort(arr, sort_fn):
     return sorted_arr
 
 
-
 def user_choice(L, R):
     global comparison_count  # Access the global counter
     user_input = input(f"[1] {L} vs [2] {R}: ").strip().lower()
@@ -99,7 +103,8 @@ if __name__ == "__main__":
     # print(sorted_list)
 
     print("Original array:", arr)
-    # result = merge_sort(arr, user_choice)
-    result = heap_sort(arr, user_choice)
+    result = merge_sort(arr, user_choice)
+    # result = heap_sort(arr, user_choice)
+    # result = quick_sort(arr, user_choice)
     print("Sorted array:", result)
-    print('Comparison count:', comparison_count)
+    print("Comparison count:", comparison_count)
