@@ -192,4 +192,4 @@ def get_recommendations(tracks, n):
 if __name__ == "__main__":
     name = "MUNA"
     id = get_artist_uri(name)
-    pp.pprint(get_artist_albums(name,id))
+    pp.pprint(get_artist_albums(name, id))

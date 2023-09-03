@@ -1,6 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
+
 # import pandas as pd
 import random
 
@@ -128,8 +129,9 @@ def get_artist_albums(name, id):
     try:
         # item specify a collection of information related to each artist's album
         for item in response["items"]:
-            a = {"name": item["name"], "id": item["id"], "release_year": str(item["release_date"][:4])}
+            a = {"name": item["name"], "id": item["id"], "release_year": int(item["release_date"][:4])}
             albums.append(a)
+        albums = sorted(albums, key=lambda x: x["release_year"], reverse=True)
     except Exception as e:
         print(e)
 
