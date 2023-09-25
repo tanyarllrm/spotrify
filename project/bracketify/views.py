@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.views import generic
 from django.utils import timezone
+from django.views.generic.edit import FormView
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from .models import Record
@@ -10,6 +10,7 @@ from .forms import UserChoiceForm
 from .lib import *
 
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+global_context = {}
 
 
 def home(request):
@@ -18,8 +19,9 @@ def home(request):
 
 def artist_search_result(request):
     if request.method == "POST":
-        artist_name = request.POST.get("artist_name", "")
-        artist_id = get_artist_uri(artist_name)
+        input_name = request.POST.get("artist_name", "")
+        artist_id = get_artist_uri(input_name)
+        artist_name = spotify.artist(artist_id)["name"]
         try:
             top_songs = spotify.artist_top_tracks(artist_id, country="CA")["tracks"][:5]
         except:
@@ -29,40 +31,74 @@ def artist_search_result(request):
         related_artists = [a["name"] for a in sorted_artists]
         albums = get_artist_albums(artist_name, artist_id)
 
-        response = {"artist_name": artist_name, "top_songs": top_songs, "related_artists": related_artists, "albums": albums}
+        context = {"artist_name": artist_name, "top_songs": top_songs, "related_artists": related_artists, "albums": albums}
+        global_context["artist_name"] = artist_name
 
-        return render(request, "bracketify/artist_detail.html", response)
+        return render(request, "bracketify/artist_detail.html", context)
     return render(request, "bracketify/search_artist.html")
 
 
-def user_choice(L, R):
-    global comparison_count  # Access the global counter
-    user_input = input(f"[1] {L} vs [2] {R}: ").strip().lower()
-    comparison_count += 1
-    return str(user_input) == str(1)
+def bracket_landing(request, album_id):
+    album = spotify.album(album_id, market="CA")
+    global_context["album"] = {"name": album["name"], "id": album_id}
+    tracklist = get_album_tracks(album_id)
+    global_context["tracklist"] = tracklist
+
+    # context = {"album": {"id": album_id, "name": album_name}, "artist_name": artist_name, "tracklist": tracklist}
+    return render(request, "bracketify/bracket_landing.html", global_context)
 
 
-def user_choice(user_input):
-    comparison_count = 0  # Initialize the comparison count
+def merge_sort(request, arr, sort_fn):
+    print(arr)
 
-    # Perform the comparison based on user input
-    if user_input == "1":
-        comparison_count += 1
-        result = True
-    else:
-        comparison_count += 1
-        result = False
+    def merge(left, right):
+        result = []
+        i, j = 0, 0
 
-    return result, comparison_count
+        while i < len(left) and j < len(right):
+            if sort_fn(request,left[i], right[j]):
+                result.append(left[i])
+                i += 1
+            else:
+                result.append(right[j])
+                j += 1
+
+        result += left[i:]
+        result += right[j:]
+
+        return result
+
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+
+    left = merge_sort(request,left, sort_fn)
+    right = merge_sort(request,right, sort_fn)
+
+    return merge(left, right)
+
+
+def user_choice(request, L, R):
+    # process form data from user and render as a page with buttons
+    if request.method == "POST":
+        form = UserChoiceForm(option1=L, option2=R, data=request.POST)
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            choice = form.cleaned_data["user_choice"]
+            # if choice == "L" return true, else return false
+            return choice == "L"
+            # return HttpResponseRedirect(reverse("bracketify:bracket_sort", args=(L, R)))  # redirect to the same page
+
+    form = UserChoiceForm(option1=L, option2=R)
+    return render(request, "bracketify/bracket_sort.html", {'form': form})
 
 
 def bracket(request, album_id):
-    if request.method == "POST":
-        form = UserChoiceForm(option1='Option 1', option2='Option 2', data=request.POST)
-        if form.is_valid():
-            user_input = form.cleaned_data["choice"]
-            result, comparison_count = user_choice(user_input)
-            return render(request, "result.html", {"result": result, "comparison_count": comparison_count})
-    else:
-        form = UserChoiceForm(option1='Option 1', option2='Option 2')
-    return render(request, "bracketify/bracket.html", {"form": form})
+    # tracks = [t['name'] for t in global_context["tracklist"]]
+    # sorted_tracks = merge_sort(request,tracks, user_choice)
+    # return sorted_tracks
+
+    return render(request, "bracketify/bracket_sort.html", global_context)

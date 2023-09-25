@@ -142,6 +142,7 @@ def get_album_tracks(name, id):
 
     tracks = []
     try:
+        pp.pprint(response["items"][0])
         for item in response["items"]:
             t = {
                 "name": item["name"],
@@ -154,8 +155,9 @@ def get_album_tracks(name, id):
     except Exception as e:
         print(e)
 
-    df = pd.DataFrame.from_dict(tracks)
-    return df
+    return tracks
+    # df = pd.DataFrame.from_dict(tracks)
+    # return df
 
 
 def get_recommendations(tracks, n):
@@ -169,7 +171,7 @@ def get_recommendations(tracks, n):
     )
     recs = []
     try:
-        # pp.pprint(response['tracks'][0])
+        pp.pprint(response["tracks"][0])
         for item in response["tracks"][:n]:
             t = {
                 "track_name": item["name"],
@@ -190,6 +192,10 @@ def get_recommendations(tracks, n):
 
 
 if __name__ == "__main__":
-    name = "MUNA"
-    id = get_artist_uri(name)
-    pp.pprint(get_artist_albums(name, id))
+    tracks = get_album_tracks("Saves the World", "5ZpSRd3GwvEGrD7kWn0fHz")
+    pp.pprint(tracks)
+    album = spotify.album("5ZpSRd3GwvEGrD7kWn0fHz", market="CA")
+    album_name = album["name"]
+    artist_name = album["artists"][0]["name"]
+    print(album_name)
+    print(artist_name)

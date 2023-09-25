@@ -98,7 +98,7 @@ if __name__ == "__main__":
     comparison_count = 0
     # Example usage:
     # arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-    arr = ["C", "B", "D", "A", "F", "H", "G", "E", "I"]
+    arr = ["songC", "songB", "songD", "songA", "songF", "songH", "songG", "songE", "songI"]
     # sorted_list = merge_sort(unsorted_list, user_choice)
     # print(sorted_list)
 

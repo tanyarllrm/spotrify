@@ -14,3 +14,11 @@ class Record(models.Model):
 
     def __str__(self):
         return f"{self.user} Ranking for {self.artist_name} - {self.song_name}: {self.ranking}"
+
+
+# class Song(models.Model):
+#     name = models.CharField(max_length=128)
+#     id = models.CharField(max_length=128)
+#
+#     def __str__(self):
+#         return self.name

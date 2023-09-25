@@ -1,26 +1,44 @@
-li a {
-    color: black;
+a:link {
+    text-decoration: none;
+    color: #f35b04;
 }
+
+a:visited {
+    text-decoration: none;
+    color: #7678ed;
+}
+
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
 
 h1 {
     text-align: center;
-    font-size: 4rem;
+    font-size: 3rem;
+    margin-top: 2rem; /* Add some top margin to the heading */
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
     margin-top: 2rem; /* Add some top margin to the heading */
 }
 
 p {
     margin-top: 1rem; /* Add top margin to the paragraph */
-    font-size: 1.25rem;
+    font-size: 1.3rem;
 }
 
 body {
-    font: 1.2em "Fira Sans", sans-serif;
+    min-width: 100%;
+    max-width: 100%;
+    font: 1.4rem "Fira Sans", sans-serif;
     background: white url("images/background.jpg") no-repeat;
     background-size: cover;
 }
 
 table {
   border: 1px solid black;
+  font-size: 1.3rem;
 }
 
 .links a {
@@ -47,14 +65,9 @@ input {
   font-size: 18px;
 }
 
-.button1:hover {
-  background-color: black;
-  color: white;
-}
-
 .button2 {
   border-radius: 8px;
-  border: 1px solid black;
+  border: 1.5px solid black;
   background-color: transparent;
   color: black;
   padding: 10px 16px;
@@ -64,10 +77,11 @@ input {
   font-size: 16px;
 }
 
-.button2:hover {
+.button1:hover, .button2:hover {
   background-color: black;
   color: white;
 }
+
 
 #page-container {
   position: relative;
@@ -78,15 +92,16 @@ input {
   padding-bottom: 2.5rem;
 }
 
-#footer {
+footer {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   height: 2.2rem;
   background-color: transparent;
   text-align: center;
   padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
+  padding-bottom: 1rem;
   font: 0.8em "Fira Sans", sans-serif;
 }
 
@@ -97,7 +112,7 @@ input {
 /* If the screen size is 600px wide or less*/
 @media screen and (max-width: 800px) {
   h1 {
-    font-size: 5rem;
+    font-size: 4rem;
   }
   p {
     font-size: 1.5rem;

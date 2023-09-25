@@ -6,5 +6,6 @@ app_name = "bracketify"
 urlpatterns = [
     path("", views.home, name="home"),
     path("search/", views.artist_search_result, name="search_artist"),
-    path("bracket/<album_id>/", views.bracket, name="bracket"),
+    path("bracket/<album_id>/", views.bracket_landing, name="bracket_landing"),
+    path("bracket/<album_id>/sort/", views.bracket, name="bracket_sort"),
 ]

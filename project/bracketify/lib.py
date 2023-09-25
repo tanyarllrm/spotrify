@@ -107,11 +107,10 @@ genres = ["indie-pop"]
 
 
 def get_artist_uri(name="Taylor Swift"):
-    results = spotify.search(q="artist:" + name, type="artist")
+    results = spotify.search(q="artist:" + name, type="artist", market="CA")
     items = results["artists"]["items"]
-
     try:
-        top_items = sorted(items, key=lambda x: x["followers"]["total"], reverse=True)[:5]
+        top_items = sorted(items, key=lambda x: x["popularity"], reverse=True)[:5]
         print(top_items)
         artist = top_items[0]
         # pp.pprint(artist)
@@ -123,7 +122,7 @@ def get_artist_uri(name="Taylor Swift"):
 
 def get_artist_albums(name, id):
     print(f"Getting all albums for {name}:")
-    response = spotify.artist_albums(id, album_type="album")
+    response = spotify.artist_albums(id, album_type="album", limit=25)
 
     albums = []
     try:
@@ -140,8 +139,7 @@ def get_artist_albums(name, id):
     # return df
 
 
-def get_album_tracks(name, id):
-    print(f"Getting all tracks on album {name}:")
+def get_album_tracks(id):
     response = spotify.album_tracks(id)
 
     tracks = []
@@ -174,7 +172,6 @@ def get_recommendations(tracks, n):
     )
     recs = []
     try:
-        # pp.pprint(response['tracks'][0])
         for item in response["tracks"][:n]:
             t = {
                 "track_name": item["name"],
@@ -193,6 +190,7 @@ def get_recommendations(tracks, n):
     return recs
     # df = pd.DataFrame.from_dict(recs)
     # return df.iloc[:, :4]
+
 
 def merge_sort(arr, sort_fn):
     print(arr)
@@ -228,4 +226,7 @@ def merge(left, right, sort_fn):
 
 
 if __name__ == "__main__":
-    print("hi")
+    print(get_artist_uri("Muna"))
+
+    # tracks = get_album_tracks("folklore", "6UelLqGlWMcVH1E5c4H7lY")
+    # pp.pprint(tracks)

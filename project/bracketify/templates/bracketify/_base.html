@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>{% block title %}My App{% endblock %}</title>
+	<!--	{% load bootstrap5 %}-->
+	<!--  	{% bootstrap_css %}-->
 	<link rel="stylesheet" href="{% static 'bracketify/style.css' %}">
 	<link rel="icon" type="image/png" href="{% static 'bracketify/images/icon.png' %}">
 </head>
@@ -11,10 +13,11 @@
 		{% block content %}
 		{% endblock %}
 	</div>
+	<br>
 	<footer id="footer">
-		<p>Created by tanyarllrm using the <a href="https://developer.spotify.com/documentation/web-api">Spotify
-			API</a>.
-			All Artist and Song data sourced from Spotify.</p>
+		<p>Created by tanyarllrm using the <a href="https://developer.spotify.com/documentation/web-api">Spotify API</a>.
+			All Artist and Song data sourced from Spotify.
+		</p>
 	</footer>
 </div>
 </body>

@@ -1,4 +1,4 @@
-{% extends 'bracketify/base.html' %}
+{% extends 'bracketify/_base.html' %}
 
 <html>
 <head>
@@ -7,31 +7,38 @@
 {% block content %}
 <body>
 <h1>{{ artist_name }}</h1>
-<div align="center">
-	<h2> Top Songs in Canada</h2>
-	<table style="width:30%">
-		{% for song in top_songs %}
-		<tr>
-			<td>{{ song.name }}</td>
-		</tr>
-		{% endfor %}
-	</table>
-	<br>
-	<h2> Other artists you may like </h2>
-	<table style="width:30%">
-		{% for artist in related_artists %}
-		<tr>
-			<td>{{artist}}</td>
-		</tr>
-		{% endfor %}
-	</table>
+<div align="center" style="width: 100%;">
+	<div class="container" align="center" style="display: flex;">
+		<div style="width: 50%;">
+			<h2> Top Songs in Canada</h2>
+			<table style="width:60%">
+				{% for song in top_songs %}
+				<tr>
+					<td>{{ song.name }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div style="flex-grow: 1;">
+			<h2> Other artists you may like </h2>
+			<table style="width:60%">
+				{% for artist in related_artists %}
+				<tr>
+					<td>{{artist}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+
 </div>
 <br>
 <div align="center">
 	<h2> Select an album to create a song bracket </h2>
 	{% for album in albums %}
-	<a href="{% url 'bracketify:bracket' album.id %}">
-	<button class="button1">{{album.name}} ({{album.release_year}})</button>
+	<a href="{% url 'bracketify:bracket_landing' album.id %}">
+		<button class="button1">{{album.name}} ({{album.release_year}})</button>
 	</a>
 	{% endfor %}
 
