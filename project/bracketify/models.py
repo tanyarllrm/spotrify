@@ -16,9 +16,9 @@ class Record(models.Model):
         return f"{self.user} Ranking for {self.artist_name} - {self.song_name}: {self.ranking}"
 
 
-# class Song(models.Model):
-#     name = models.CharField(max_length=128)
-#     id = models.CharField(max_length=128)
-#
-#     def __str__(self):
-#         return self.name
+class Players(models.Model):
+    name = models.CharField(max_length=128)
+    last_session_datetime = models.DateTimeField("Timestamp of last session")
+
+    def __str__(self):
+        return self.name
