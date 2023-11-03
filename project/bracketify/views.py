@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.views.generic.edit import FormView
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-from .models import Record
+from .models import Record, Players
 from .forms import UserChoiceForm
 from .lib import *
 
@@ -38,14 +38,14 @@ def artist_search_result(request):
     return render(request, "bracketify/search_artist.html")
 
 
-def bracket_landing(request, album_id):
+def album_sort(request, album_id):
     album = spotify.album(album_id, market="CA")
     global_context["album"] = {"name": album["name"], "id": album_id}
     tracklist = get_album_tracks(album_id)
     global_context["tracklist"] = tracklist
 
     # context = {"album": {"id": album_id, "name": album_name}, "artist_name": artist_name, "tracklist": tracklist}
-    return render(request, "bracketify/bracket_landing.html", global_context)
+    return render(request, "bracketify/album_sorting.html", global_context)
 
 
 def merge_sort(request, arr, sort_fn):
@@ -93,7 +93,7 @@ def user_choice(request, L, R):
             # return HttpResponseRedirect(reverse("bracketify:bracket_sort", args=(L, R)))  # redirect to the same page
 
     form = UserChoiceForm(option1=L, option2=R)
-    return render(request, "bracketify/bracket_sort.html", {'form': form})
+    return render(request, "bracketify/sort.html", {'form': form})
 
 
 def bracket(request, album_id):
@@ -101,4 +101,4 @@ def bracket(request, album_id):
     # sorted_tracks = merge_sort(request,tracks, user_choice)
     # return sorted_tracks
 
-    return render(request, "bracketify/bracket_sort.html", global_context)
+    return render(request, "bracketify/sort.html", global_context)

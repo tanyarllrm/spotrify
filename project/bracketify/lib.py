@@ -147,6 +147,7 @@ def get_album_tracks(id):
         for item in response["items"]:
             t = {
                 "name": item["name"],
+                "track_number": item["track_number"],
                 "id": item["id"],
                 "uri": item["uri"],
                 "spotify_url": item["external_urls"]["spotify"],
@@ -226,7 +227,7 @@ def merge(left, right, sort_fn):
 
 
 if __name__ == "__main__":
-    print(get_artist_uri("Muna"))
+    # print(get_artist_uri("Muna"))
 
-    # tracks = get_album_tracks("folklore", "6UelLqGlWMcVH1E5c4H7lY")
-    # pp.pprint(tracks)
+    tracks = get_album_tracks("3lS1y25WAhcqJDATJK70Mq")
+    pp.pprint(tracks)

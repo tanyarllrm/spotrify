@@ -37,7 +37,7 @@
 <div align="center">
 	<h2> Select an album to create a song bracket </h2>
 	{% for album in albums %}
-	<a href="{% url 'bracketify:bracket_landing' album.id %}">
+	<a href="{% url 'bracketify:album_sort' album.id %}">
 		<button class="button1">{{album.name}} ({{album.release_year}})</button>
 	</a>
 	{% endfor %}
